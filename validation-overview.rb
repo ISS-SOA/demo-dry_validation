@@ -20,8 +20,7 @@ UserSchema.call(
   address: { street: 'Street 1', city: 'NYC', zipcode: '1234' }
 )
 
-require 'dry-validation'
-
+# Creating custom predicates and messages
 FileSchema = Dry::Validation.Schema do
   key(:filename).required(:no_path?)
 
@@ -36,12 +35,10 @@ FileSchema = Dry::Validation.Schema do
   end
 end
 
-FileSchema.call(
+# should trigger custom :no_path error and message
+msgs = FileSchema.call(
   filename: 'path/file.txt',
   document: '---'
 ).messages
 
-test = FileSchema.(
-  filename: 'config.ini',
-  document: '---'
-).messages
+puts msgs

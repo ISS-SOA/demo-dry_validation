@@ -1,2 +1,3 @@
 en:
-  no_path?: 'filename must not include path'
+  errors:
+    no_path?: 'filename must not include path'
