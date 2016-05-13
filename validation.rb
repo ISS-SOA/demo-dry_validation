@@ -1,6 +1,6 @@
 require 'dry-validation'
 
-UserSchema = Dry::Validation.Schema do
+AccountSchema = Dry::Validation.Schema do
   key(:name).required
 
   key(:email).required(format?: /@/)
@@ -14,7 +14,18 @@ UserSchema = Dry::Validation.Schema do
   end
 end
 
-UserSchema.call(
+# Happy
+params_happy = {
+  name: 'Jane',
+  email: 'jane@doe.org',
+  age: 26,
+  address: { street: 'Street 1', city: 'NYC', zipcode: '1234' }
+}
+
+AccountSchema.call(params_happy)
+
+# Sad
+AccountSchema.call(
   name: 'Jane',
   email: 'janedoe.org',
   address: { street: 'Street 1', city: 'NYC', zipcode: '1234' }
