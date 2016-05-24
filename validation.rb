@@ -1,10 +1,11 @@
+# More complex examples of pure validation (see form.rb for basics)
+# NOTE: coercion doesn't happen outside of Dry::Validation.Form
 require 'dry-validation'
 
+# Example of string regex check, optional values, nested types
 AccountSchema = Dry::Validation.Schema do
   key(:name).required
-
   key(:email).required(format?: /@/)
-
   key(:age).maybe(:int?)
 
   key(:address).schema do
@@ -31,10 +32,9 @@ AccountSchema.call(
   address: { street: 'Street 1', city: 'NYC', zipcode: '1234' }
 )
 
-# Creating custom predicates and messages
+# Creating custom predicates and errormessages
 FileSchema = Dry::Validation.Schema do
   key(:filename).required(:no_path?)
-
   key(:document).required(:str?)
 
   configure do
